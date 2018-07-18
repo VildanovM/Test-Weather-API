@@ -13,10 +13,37 @@ class TableTableViewController: UITableViewController {
     var timeRefreshing = 0
     var items = [Model]()
     var currentCity : Model?
-    var cities = ["London", "Madrid","Dublin", "Tivat"]
+    var cities = [String]()
+    
+    required init?(coder aDecoder: NSCoder) {
+        cities = [String]()
+        cities.append("London")
+        cities.append("Madrid")
+        cities.append("Tivat")
+        cities.append("Dublin")
+//        let row0item = "London"
+//        cities.append(row0item)
+//
+//        let row1item = "Madrid"
+//        cities.append(row1item)
+//
+//        let row2item = "Tivat"
+//        cities.append(row2item)
+//
+//        let row3item = "Dublin"
+//        cities.append(row3item)
+//
+//        let row4item = "Novosibirsk"
+//        cities.append(row4item)
+        
+        super.init(coder: aDecoder)
+        loadItems()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(cities)
+        
 //        items = [Model(time: "21:45" , city: "London" , deg: "70°" )]
         getData()
         tableView.separatorColor = .clear
@@ -45,7 +72,7 @@ class TableTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         let item = items[indexPath.row]
-        
+        saveItems()
         if let name = item.name, let dt = item.dt?.unixTimeToString(), let temp = item.main.temp?.rounded() {
                 cell.cityNameOutlet.text = name
                 cell.currentTimeOutlet.text = dt
@@ -74,6 +101,7 @@ class TableTableViewController: UITableViewController {
                 if let item = items[indexPath.row].name {
                     if item == cities[i] {
                         cities.remove(at: i)
+                        saveItems()
                         break
                     }
                 }
@@ -152,6 +180,38 @@ class TableTableViewController: UITableViewController {
         }
         (segue.destination as! SecondViewController).items = cities
         
+    }
+    
+    func documentDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        
+        return paths[0]
+    }
+    
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(cities, forKey: "Save")
+        
+    }
+    
+    func dataFilePath() -> URL {
+        return documentDirectory().appendingPathComponent("Weather.plist")
+    }
+    
+    func saveItems() {
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        archiver.encode(cities, forKey: "CityItems")
+        archiver.finishEncoding()
+        data.write(to: dataFilePath(), atomically: true)
+    }
+    
+    func loadItems() {
+        let path = dataFilePath()
+        if let data = try? Data(contentsOf: path) {
+            let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+            cities = unarchiver.decodeObject(forKey: "CityItems") as! [String]
+            unarchiver.finishDecoding()
+        }
     }
     
 }
