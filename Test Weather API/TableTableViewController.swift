@@ -101,13 +101,13 @@ class TableTableViewController: UITableViewController {
                 if let item = items[indexPath.row].name {
                     if item == cities[i] {
                         cities.remove(at: i)
-                        saveItems()
                         break
                     }
                 }
             }
             items.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            saveItems()
             print(cities)
         }
     }
