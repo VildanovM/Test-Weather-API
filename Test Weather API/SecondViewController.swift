@@ -48,7 +48,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "return" {
             
-            if let text = cityLabelOutlet.text {
+            if let text = cityLabelOutlet.text?.capitalized {
                 if items.contains(text) {
                     let alert = UIAlertController(title: "Warning", message: "This city is already in the table", preferredStyle: .alert)
                     let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -104,7 +104,7 @@ class SecondViewController: UIViewController, UITextFieldDelegate {
                         self.present(alert, animated: true)
                         return
                     }
-                items.append(text)
+                items.append(text.capitalized)
             
         }
         (segue.destination as! TableTableViewController).cities = items as! [String]

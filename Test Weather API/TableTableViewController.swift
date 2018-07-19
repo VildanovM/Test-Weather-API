@@ -42,6 +42,10 @@ class TableTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        for i in cities.indices {
+            cities[i] = cities[i].capitalized
+        }
+        saveItems()
         print(cities)
         
 //        items = [Model(time: "21:45" , city: "London" , deg: "70°" )]
