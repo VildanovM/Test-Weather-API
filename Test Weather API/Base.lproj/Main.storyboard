@@ -32,9 +32,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fh6-F9-GS8">
-                                            <rect key="frame" x="16" y="57" width="59.5" height="24"/>
+                                            <rect key="frame" x="16" y="57" width="59.5" height="30"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="24" id="Cr3-b3-HTs"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="Cr3-b3-HTs"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -191,7 +191,6 @@
         <image name="eaAZ3zKCMlo" width="450" height="1250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Qea-4c-3eN"/>
         <segue reference="lOe-U3-Y41"/>
     </inferredMetricsTieBreakers>
 </document>

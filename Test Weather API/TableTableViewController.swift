@@ -46,7 +46,6 @@ class TableTableViewController: UITableViewController {
             cities[i] = cities[i].capitalized
         }
         saveItems()
-        print(cities)
         
 //        items = [Model(time: "21:45" , city: "London" , deg: "70°" )]
         getData()
